@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>售后工程工作分工查询系统</title>
+  <link rel="stylesheet" href="/layui/css/layui.css">
+</head>
+<body>
+<div class="layui-row">
+  <div class="layui-col-md12">
+    售后工程工作分工查询系统
+  </div>
+</div>
+<div class="layui-row">
+  <div class="layui-form-item">
+    <label class="layui-form-label">ECU</label>
+    <div class="layui-input-block">
+      <input id="ecu" type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="layui-input">
+    </div>
+    <label class="layui-form-label">诊断工程师</label>
+    <div class="layui-input-block">
+      <input id="diagOwner" type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="layui-input">
+    </div>
+  </div>
+
+</div>
+<div class="layui-row">
+  <div class="layui-form-item">
+    <label class="layui-form-label">数据工程师</label>
+    <div class="layui-input-block">
+      <input id="dataOwner" type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="layui-input">
+    </div>
+    <label class="layui-form-label">服务开发工程师</label>
+    <div class="layui-input-block">
+      <input id="serviceDevOwner" type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="layui-input">
+    </div>
+  </div>
+</div>
+  <div class="layui-row">
+  <div class="layui-form-item">
+    <label class="layui-form-label">零件工程师</label>
+    <div class="layui-input-block">
+      <input id="partOwner" type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="layui-input">
+    </div>
+    <label class="layui-form-label">策略工程师</label>
+    <div class="layui-input-block">
+      <input id="ruleOwner" type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="layui-input">
+    </div>
+  </div>
+  </div>
+<button type="button" class="layui-btn layui-btn-radius" id="query-list">查询</button>
+<button type="button" class="layui-btn layui-btn-radius layui-btn-normal" id="list-clear">重置</button>
+
+
+<table id="demo" lay-filter="test"></table>
+
+<script src="/layui/layui.js"></script>
+<script src="/layui/jquery-1.9.1.min.js"></script>
+<script type="text/javascript"  th:inline="none">
+
+  var tableIns;
+  
+  layui.use('table', function(){
+    getList();
+    
+  });
+
+  function getList(){
+    var table = layui.table;
+    var map = {};
+    var ecu = document.getElementById("ecu").value;
+    if (ecu != null && ecu !=""){
+      map["ecu"] = ecu;
+    }
+    var diagOwner = document.getElementById("diagOwner").value;
+    if (diagOwner != null && diagOwner !=""){
+      map["diagOwner"] = diagOwner;
+    }
+    var dataOwner = document.getElementById("dataOwner").value;
+    if (dataOwner != null && dataOwner !=""){
+      map["dataOwner"] = dataOwner;
+    }
+    var serviceDevOwner = document.getElementById("serviceDevOwner").value;
+    if (serviceDevOwner != null && serviceDevOwner !=""){
+      map["serviceDevOwner"] = serviceDevOwner;
+    }
+    var partOwner = document.getElementById("partOwner").value;
+    if (partOwner != null && partOwner !=""){
+      map["partOwner"] = partOwner;
+    }
+    var ruleOwner = document.getElementById("ruleOwner").value;
+    if (ruleOwner != null && ruleOwner !=""){
+      map["ruleOwner"] = ruleOwner;
+    }
+    var ip = window.location.host;
+    tableIns = table.render({
+      elem: '#demo'
+      ,height: 312
+      ,url: 'http://'+ip+'/demo/list'
+      ,where: map
+      ,contentType: 'application/json'
+      ,page: false
+      ,method: 'post'
+      ,cols: [[
+        {field: 'ecu', title: 'ECU', width:80, sort: true, fixed: 'left'}
+        ,{field: 'descEn', title: 'DescEn', width:200, sort: true}
+        ,{field: 'descCn', title: 'DescCn', width:200}
+        ,{field: 'vehicleModel', title: 'VehicleModel', width: 100}
+        ,{field: 'remark', title: 'Remark', width: 100, sort: true}
+        ,{field: 'dataOwner', title: 'DataOwner', width: 150, sort: true}
+        ,{field: 'diagOwner', title: 'DiagOwner', width: 150}
+        ,{field: 'partOwner', title: 'PartOwner', width: 150, sort: true}
+        ,{field: 'ruleOwner', title: 'RuleOwner', width: 150, sort: true}
+        ,{field: 'serviceDevOwner', title: 'ServiceDevOwner', width: 150, sort: true}
+      ]]
+    });
+  }
+
+  $('#query-list').on('click', function(){
+    getList();
+  });
+  $('#list-clear').on('click', function(){
+    $(".layui-input").val("");
+  });
+  
+
+</script>
+</body>
+</html>
