@@ -8,7 +8,7 @@
 </head>
 <body>
 <div class="layui-row">
-  <div class="layui-col-md12">
+  <div class="layui-col-md12" style="font-size: xx-large;margin: 0 auto;text-align: center;">
     售后工程工作分工查询系统
   </div>
 </div>
@@ -49,8 +49,14 @@
     </div>
   </div>
   </div>
-<button type="button" class="layui-btn layui-btn-radius" id="query-list">查询</button>
-<button type="button" class="layui-btn layui-btn-radius layui-btn-normal" id="list-clear">重置</button>
+
+<div class="layui-row">
+  <div class="layui-col-md12" style="font-size: xx-large;margin: 0 auto;text-align: center;">
+    <button type="button" class="layui-btn layui-btn-radius" id="query-list">查询</button>
+    <button type="button" class="layui-btn layui-btn-radius layui-btn-normal" id="list-clear">重置</button>
+  </div>
+</div>
+
 
 
 <table id="demo" lay-filter="test"></table>
@@ -96,7 +102,7 @@
     var ip = window.location.host;
     tableIns = table.render({
       elem: '#demo'
-      ,height: 312
+      ,height: 500
       ,url: 'http://'+ip+'/demo/list'
       ,where: map
       ,contentType: 'application/json'
