@@ -130,6 +130,16 @@
     $(".layui-input").val("");
   });
   
+  // 监听回车查询事件
+  $(document).keyup(function (event) {
+    //是否选中input
+    var isFocus = $(".layui-input").is(":focus");
+    if (event.keyCode == 13) {
+      if (isFocus == true) {
+        getList();
+      }
+    }
+  })
 
 </script>
 </body>
